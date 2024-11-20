@@ -1,0 +1,30 @@
+.admin-panel {
+    padding: 20px;
+  }
+  
+  .product-form input,
+  .product-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+  }
+  
+  .product-form button {
+    padding: 10px 20px;
+    
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .product-form button:hover {
+    background-color: #2c3e50;
+  }
+  
+  .message {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #4caf50;
+  }
+  
