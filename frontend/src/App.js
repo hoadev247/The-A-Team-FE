@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom"; // Fixed duplicate imports
+import Home from "./Client/Home/Home";
+import About from "./Client/About/About";
+import Contact from "./Client/Contact/Contact";
+import News from "./Client/News/News";
+import LoginForm from "./Client/Login/LoginForm";
+import RegisterForm from "./Client/Register/RegisterForm";
+import CartForm from "./Client/Cart/CartForm";
+import ForgotPassword from "./Client/ForgotPassword/ForgotPassword";
+import "./App.css"; // Avoid duplicate import
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />{" "}
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/register" element={<RegisterForm />} />
+          <Route path="/cart" element={<CartForm />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
