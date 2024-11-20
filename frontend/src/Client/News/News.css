@@ -1,0 +1,81 @@
+.new-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 40px;
+}
+
+.new-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.new-item {
+  width: 30%; /* Mỗi phần tử chiếm 30% chiều rộng */
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.new-item-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.new-item-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.new-item h2 {
+  color: #007bff;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.date {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 15px;
+}
+
+.new-item p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.new-item .btn {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.new-item .btn:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .new-item {
+    width: 100%; /* Trên màn hình nhỏ hơn, mỗi phần tử chiếm toàn bộ chiều rộng */
+    margin-bottom: 20px;
+  }
+}
