@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "../../Components/Header/Header";
+import Footer from "../../Components/Footer/Footer";
 import "./News.css";
 
 const New = () => {
@@ -36,8 +37,10 @@ const New = () => {
   return (
     <div>
       <Header />
-      <div className="new-container">
+      <div className="new-about-banner">
         <h1>What's New</h1>
+      </div>
+      <div className="new-container">
         <section className="new-items">
           {newItems.map((item) => (
             <div className="new-item" key={item.id}>
@@ -58,6 +61,8 @@ const New = () => {
           ))}
         </section>
       </div>
+
+      <Footer />
     </div>
   );
 };

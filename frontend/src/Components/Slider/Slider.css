@@ -1,7 +1,7 @@
 .slider {
   top: 10px;
   position: relative;
-  width: 93vw; /* Chiếm toàn bộ chiều rộng màn hình */
+  width: 100vw; /* Chiếm toàn bộ chiều rộng màn hình */
   height: 93vh; /* Chiều cao cố định */
   margin: 0 auto;
   overflow: hidden;

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./RegisterForm.css";
+import { Link } from "react-router-dom"; // Import Link từ react-router-dom để điều hướng
+
 
 const RegisterForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -117,6 +119,18 @@ const RegisterForm = () => {
           Register
         </button>
       </form>
+
+      {/* Các liên kết điều hướng */}
+      <div className="additional-links">
+        <Link to="/" className="home-link">
+          Back to Home
+        </Link>{" "}
+        {/* Link về trang chủ */}
+        <Link to="/login" className="login-link">
+          Already have an account? Login
+        </Link>{" "}
+        {/* Link đến trang đăng nhập */}
+      </div>
     </div>
   );
 };

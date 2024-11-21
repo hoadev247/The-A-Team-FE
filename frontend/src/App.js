@@ -19,6 +19,10 @@ import Order from "./Admin/Order/Order";
 import Inventory from "./Admin/Inventory/Inventory";
 import AdminPanel from "./Admin/AdminPanel/Panel";
 import User from "./Admin/ManageUser/ManageUser";
+import ForgotPassword from "./Client/ForgotPassword/ForgotPassword";
+import ResetPassword from "./Client/ResetPassword/ResetPassword";
+import EnterCode from "./Client/EnterCode/EnterCode";
+import "./App.css"; // Avoid duplicate import
 
 function App() {
   const { auth } = useContext(AuthContext); // Access auth state
@@ -49,6 +53,10 @@ function App() {
               <Route path="users" element={<User />} />
             </Route>
           )}
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/enter-code" element={<EnterCode />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+
         </Routes>
       </BrowserRouter>
     </div>

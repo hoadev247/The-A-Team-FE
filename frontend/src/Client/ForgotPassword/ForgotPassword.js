@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "./ForgotPassword.css";
 
 const ForgotAndResetPassword = () => {
@@ -9,6 +10,8 @@ const ForgotAndResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate(); // Hook để điều hướng
+
 
   const handleForgotPassword = async (e) => {
     e.preventDefault();
@@ -39,6 +42,9 @@ const ForgotAndResetPassword = () => {
     } catch (err) {
       setError(err.response?.data || "An error occurred. Please try again.");
     }
+    console.log("Password reset email sent to:", email);
+    // Sau khi xử lý gửi email thành công, điều hướng đến trang nhập mã xác minh
+    navigate("/enter-code", { state: { email } }); // Gửi email qua state
   };
 
   return (
