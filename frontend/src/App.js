@@ -23,6 +23,7 @@ import ForgotPassword from "./Client/ForgotPassword/ForgotPassword";
 import ResetPassword from "./Client/ResetPassword/ResetPassword";
 import EnterCode from "./Client/EnterCode/EnterCode";
 import "./App.css"; // Avoid duplicate import
+import Admin from "./Admin/admin";
 
 function App() {
   const { auth } = useContext(AuthContext); // Access auth state
@@ -42,8 +43,8 @@ function App() {
           <Route path="/forgot-password" element={<ForgotAndResetPassword />} />
 
           {/* Admin Routes */}
-          {auth?.role === "admin" && (
-            <Route path="/admin" element={<Authentication />}>
+          {/* <Route path="/admin" element={<Admin />}></Route> */}
+          <Route path="/admin" element={<Authentication />}>
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="customers" element={<Customer />} />
               <Route path="product" element={<Product />} />
@@ -52,7 +53,6 @@ function App() {
               <Route path="panel" element={<AdminPanel />} />
               <Route path="users" element={<User />} />
             </Route>
-          )}
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/enter-code" element={<EnterCode />} />
           <Route path="/reset-password" element={<ResetPassword />} />

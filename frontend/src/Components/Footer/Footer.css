@@ -100,11 +100,7 @@ a:hover {
 .social-icons img:hover {
   transform: scale(1.1); /* Scale effect on hover */
 }
-.ke {
-  height: 2px;
-  background: rgb(204, 204, 204);
-  margin: 10px 0px;
-=======
+
 /* Footer Styles */
 .footer {
     background-color: #f0f4f8;

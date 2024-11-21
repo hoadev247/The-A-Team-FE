@@ -50,9 +50,9 @@ const LoginForm = () => {
         login(token, userRole);
 
         if (userRole === "Admin") {
-          navigate("/admin/dashboard");
+          navigate("/admin");  // Redirect to Authentication route for Admin
         } else {
-          navigate("/");
+          navigate("/");  // Redirect to home for non-admin users
         }
       } else {
         throw new Error("Invalid response from server");
