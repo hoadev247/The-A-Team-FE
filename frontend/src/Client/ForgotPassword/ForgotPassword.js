@@ -1,13 +1,16 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "./ForgotPassword.css";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
+  const navigate = useNavigate(); // Hook để điều hướng
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Xử lý logic gửi email để đặt lại mật khẩu tại đây
     console.log("Password reset email sent to:", email);
+    // Sau khi xử lý gửi email thành công, điều hướng đến trang nhập mã xác minh
+    navigate("/enter-code", { state: { email } }); // Gửi email qua state
   };
 
   return (

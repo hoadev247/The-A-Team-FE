@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom"; // Import Link từ react-router-dom để điều hướng
 import "./RegisterForm.css"; // Đảm bảo đường dẫn đúng với file CSS của bạn
 
 const RegisterForm = () => {
@@ -81,6 +82,18 @@ const RegisterForm = () => {
           Register
         </button>
       </form>
+
+      {/* Các liên kết điều hướng */}
+      <div className="additional-links">
+        <Link to="/" className="home-link">
+          Back to Home
+        </Link>{" "}
+        {/* Link về trang chủ */}
+        <Link to="/login" className="login-link">
+          Already have an account? Login
+        </Link>{" "}
+        {/* Link đến trang đăng nhập */}
+      </div>
     </div>
   );
 };

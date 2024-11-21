@@ -1,13 +1,13 @@
 import React from "react";
 import "./ProductList.css";
 
-const ProductList = ({ title, products, type }) => {
+const ProductList = ({ title, products }) => {
   return (
-    <div className={`product-list ${type}`}>
-      <h2 className="product-list-title">{title}</h2>
-      <div className="product-list-grid">
+    <section className="product-list">
+      <h2>{title}</h2>
+      <div className="product-grid">
         {products.map((product, index) => (
-          <div className="product-card" key={index}>
+          <div key={index} className="product-card">
             <img
               src={product.image}
               alt={product.name}
@@ -18,7 +18,7 @@ const ProductList = ({ title, products, type }) => {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

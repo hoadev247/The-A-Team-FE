@@ -8,6 +8,8 @@ import LoginForm from "./Client/Login/LoginForm";
 import RegisterForm from "./Client/Register/RegisterForm";
 import CartForm from "./Client/Cart/CartForm";
 import ForgotPassword from "./Client/ForgotPassword/ForgotPassword";
+import ResetPassword from "./Client/ResetPassword/ResetPassword";
+import EnterCode from "./Client/EnterCode/EnterCode";
 import "./App.css"; // Avoid duplicate import
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/cart" element={<CartForm />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/enter-code" element={<EnterCode />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
         </Routes>
       </BrowserRouter>
     </div>
