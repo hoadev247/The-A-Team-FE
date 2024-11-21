@@ -64,6 +64,35 @@ h2 {
   margin-bottom: 10px;
   text-align: center;
 }
+.additional-links {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.additional-links a {
+  color: #f39c12; /* Màu vàng đồng nhất */
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.additional-links a:hover {
+  color: #e67e22; /* Chuyển sang cam khi hover */
+}
+
+.home-link {
+  font-size: 16px;
+  color: #333; /* Màu đen cho đường link quay lại trang chủ */
+}
+
+.login-link {
+  font-size: 16px;
+  color: #f39c12; /* Màu vàng cho liên kết đăng nhập */
+}
 
 @media (max-width: 600px) {
   .form-container {

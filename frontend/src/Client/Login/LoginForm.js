@@ -17,7 +17,9 @@ const LoginForm = () => {
       <h2>Login</h2>
       <form onSubmit={handleSubmit} className="form">
         <div className="form-group">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email" className="email-label">
+            Email
+          </label>
           <input
             type="email"
             id="email"
@@ -27,7 +29,9 @@ const LoginForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password" className="password-label">
+            Password
+          </label>
           <input
             type="password"
             id="password"
@@ -40,9 +44,19 @@ const LoginForm = () => {
           Login
         </button>
       </form>
-      <Link to="/forgot-password" className="forgot-password-link">
-        Forgot Password?
-      </Link>
+
+      {/* Additional Links */}
+      <div className="additional-links">
+        <Link to="/forgot-password" className="forgot-password-link">
+          Forgot Password?
+        </Link>
+        <Link to="/register" className="register-link">
+          Don't have an account? Register here.
+        </Link>
+        <Link to="/" className="home-link">
+          Back to Home
+        </Link>
+      </div>
     </div>
   );
 };
