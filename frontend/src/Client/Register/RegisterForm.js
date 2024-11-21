@@ -1,42 +1,88 @@
 import React, { useState } from "react";
-import "./RegisterForm.css"; // Đảm bảo đường dẫn đúng với file CSS của bạn
+import axios from "axios";
+import "./RegisterForm.css";
 
 const RegisterForm = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
-  const handleSubmit = (e) => {
+  const API_URL = "http://localhost:5024/api/auth";
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Kiểm tra nếu mật khẩu và xác nhận mật khẩu không khớp
+    // Validate form fields
+    if (!firstName || !lastName || !dateOfBirth || !email || !password || !confirmPassword) {
+      setError("All fields are required!");
+      return;
+    }
+
     if (password !== confirmPassword) {
       setError("Passwords do not match!");
       return;
     }
 
-    // Kiểm tra các trường rỗng
-    if (!email || !username || !password || !confirmPassword) {
-      setError("All fields are required!");
-      return;
+    try {
+      // Send registration data to the backend
+      const response = await axios.post(`${API_URL}/register`, {
+        firstName,
+        lastName,
+        dateOfBirth,
+        email,
+        password,
+      });
+
+      // If successful, clear the form and show a success message
+      setSuccess("Registration successful! You can now log in.");
+      setError("");
+    } catch (err) {
+      setError(err.response?.data?.message || "Registration failed. Please try again.");
+      setSuccess("");
     }
-
-    // Nếu không có lỗi, xử lý đăng ký
-    setError("");
-    console.log("Email:", email);
-    console.log("Username:", username);
-    console.log("Password:", password);
-
-    // Thực hiện logic đăng ký (ví dụ gọi API)
   };
 
   return (
     <div className="form-container">
       <h2>Register</h2>
       {error && <div className="error-message">{error}</div>}
+      {success && <div className="success-message">{success}</div>}
       <form onSubmit={handleSubmit} className="form">
+        <div className="form-group">
+          <label htmlFor="firstName">First Name</label>
+          <input
+            type="text"
+            id="firstName"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="lastName">Last Name</label>
+          <input
+            type="text"
+            id="lastName"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="dateOfBirth">Date of Birth</label>
+          <input
+            type="date"
+            id="dateOfBirth"
+            value={dateOfBirth}
+            onChange={(e) => setDateOfBirth(e.target.value)}
+            required
+          />
+        </div>
         <div className="form-group">
           <label htmlFor="email">Email</label>
           <input
@@ -44,16 +90,6 @@ const RegisterForm = () => {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
             required
           />
         </div>
