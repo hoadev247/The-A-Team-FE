@@ -51,6 +51,7 @@ const CartForm = () => {
                   -
                 </button>
                 <input
+                  className="quantity-input"
                   type="number"
                   value={item.quantity}
                   min="1"
