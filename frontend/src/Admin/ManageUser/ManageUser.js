@@ -1,77 +1,148 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { getAccounts, addAccount, updateAccount, deleteAccount } from "../../Service/AccountService";
 import "./ManageUser.css";
 
 function User() {
+  const [accounts, setAccounts] = useState([]);
   const [search, setSearch] = useState("");
-  const users = [
-    { id: 1, name: "Alice Johnson", email: "alice@example.com", role: "Admin" },
-    { id: 2, name: "Bob Smith", email: "bob@example.com", role: "Editor" },
-    { id: 3, name: "Charlie Brown", email: "charlie@example.com", role: "Viewer" },
-  ];
+  const [newAccount, setNewAccount] = useState({ email: "", role: "", isActive: true });
+  const [editAccount, setEditAccount] = useState(null);
 
-  const filteredUsers = users.filter(
-    (user) =>
-      user.name.toLowerCase().includes(search.toLowerCase()) ||
-      user.email.toLowerCase().includes(search.toLowerCase())
+  useEffect(() => {
+    const fetchAccounts = async () => {
+      try {
+        const response = await getAccounts();
+        setAccounts(response.$values || []);
+      } catch (error) {
+        console.error("Error fetching accounts:", error);
+      }
+    };
+
+    fetchAccounts();
+  }, []);
+
+  const filteredAccounts = accounts.filter(
+    (account) =>
+      account.email.toLowerCase().includes(search.toLowerCase()) ||
+      account.role.toLowerCase().includes(search.toLowerCase())
   );
 
+  // Thêm tài khoản
+  const handleAddAccount = async () => {
+    try {
+      await addAccount(newAccount);
+      setNewAccount({ email: "", role: "", isActive: true });
+      // Cập nhật lại danh sách tài khoản
+      const response = await getAccounts();
+      setAccounts(response.$values || []);
+    } catch (error) {
+      console.error("Error adding account:", error);
+    }
+  };
+
+  // Cập nhật tài khoản
+  const handleEditAccount = async () => {
+    try {
+      if (editAccount) {
+        await updateAccount(editAccount.accountId, editAccount);
+        setEditAccount(null);
+        const response = await getAccounts();
+        setAccounts(response.$values || []);
+      }
+    } catch (error) {
+      console.error("Error updating account:", error);
+    }
+  };
+
+  // Xóa tài khoản
+  const handleDeleteAccount = async (accountId) => {
+    try {
+      await deleteAccount(accountId);
+      const response = await getAccounts();
+      setAccounts(response.$values || []);
+    } catch (error) {
+      console.error("Error deleting account:", error);
+    }
+  };
+
   return (
-    <div className="user-container">
-      {/* Tiêu đề */}
-      <header className="user-header">
-        <h1>User Management</h1>
-        <p>Manage all platform users from this page.</p>
-      </header>
-
-      {/* Thanh tìm kiếm */}
-      <div className="user-search">
-        <input
+    <div className="user-home">
+      <h1 className="user-mana">User Management</h1>
+      
+      {/* Input tìm kiếm */}
+      <input className="user-search"
+        type="text"
+        placeholder="Search accounts..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+      
+      {/* Thêm tài khoản */}
+      <div className="user-key">
+        <input className="user-email"
           type="text"
-          placeholder="Search users..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Email"
+          value={newAccount.email}
+          onChange={(e) => setNewAccount({ ...newAccount, email: e.target.value })}
         />
+        <input className="user-password"
+          type="text"
+          placeholder="Role"
+          value={newAccount.role}
+          onChange={(e) => setNewAccount({ ...newAccount, role: e.target.value })}
+        />
+        <button className="user-but" onClick={handleAddAccount}>Add Account</button>
       </div>
 
-      {/* Danh sách người dùng */}
-      <div className="user-list">
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredUsers.length > 0 ? (
-              filteredUsers.map((user) => (
-                <tr key={user.id}>
-                  <td>{user.id}</td>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>{user.role}</td>
-                  <td>
-                    <button className="btn-edit">Edit</button>
-                    <button className="btn-delete">Delete</button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="5">No users found.</td>
+      {/* Sửa tài khoản */}
+      {editAccount && (
+        <div className="user-edit">
+          <input className="user-edit-email"
+            type="text"
+            value={editAccount.email}
+            onChange={(e) => setEditAccount({ ...editAccount, email: e.target.value })}
+          />
+          <input className="user-edit-role"
+            type="text"
+            value={editAccount.role}
+            onChange={(e) => setEditAccount({ ...editAccount, role: e.target.value })}
+          />
+          <button onClick={handleEditAccount}>Update Account</button>
+        </div>
+      )}
+
+      {/* Bảng hiển thị tài khoản */}
+      <table className="user-table">
+        <thead className="user-the">
+          <tr className="user-tr">
+            <th className="user-id">Account ID</th>
+            <th className="user-e">Email</th>
+            <th className="user-r">Role</th>
+            <th className="user-s">Status</th>
+            <th className="user-a">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredAccounts.length > 0 ? (
+            filteredAccounts.map((account) => (
+              <tr className="user-account" key={account.accountId}>
+                <td className="user-account-id">{account.accountId}</td>
+                <td className="user-account-email">{account.email}</td>
+                <td className="user-account-role">{account.role}</td>
+                <td className="user-account-is">{account.isActive ? "Active" : "Inactive"}</td>
+                <td>
+                  <button className="user-btn1" onClick={() => setEditAccount(account)}>Edit</button>
+                  <button className="user-btn2" onClick={() => handleDeleteAccount(account.accountId)}>Delete</button>
+                </td>
               </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-
-      {/* Nút thêm người dùng */}
-      <div className="user-add">
-        <button className="btn-add">Add New User</button>
-      </div>
+            ))
+          ) : (
+            <tr className="user-found">
+              <td className="user-col" colSpan="5">No accounts found.</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 }

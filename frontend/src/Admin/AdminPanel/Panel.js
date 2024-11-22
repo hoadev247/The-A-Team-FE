@@ -31,28 +31,28 @@ function AdminPanel() {
   };
 
   return (
-    <div className="admin-panel">
-      <h2>Admin Panel - Add Product</h2>
+    <div className="panel-home">
+      <h2 className='panle-admin'>Admin Panel - Add Product</h2>
 
-      <form onSubmit={handleSubmit} className="product-form">
-        <input
+      <form onSubmit={handleSubmit} className="panle-form">
+        <input className='panle-name'
           type="text"
           placeholder="Product Name"
           value={productName}
           onChange={(e) => setProductName(e.target.value)}
         />
-        <input
+        <input className='panle-price'
           type="number"
           placeholder="Price"
           value={productPrice}
           onChange={(e) => setProductPrice(e.target.value)}
         />
-        <textarea
+        <textarea className="panle-description"
           placeholder="Description"
           value={productDescription}
           onChange={(e) => setProductDescription(e.target.value)}
         />
-        <button type="submit">Add Product</button>
+        <button className="panle-btn" type="submit">Add Product</button>
       </form>
 
       {message && <p className="message">{message}</p>}

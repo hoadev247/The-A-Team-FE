@@ -39,7 +39,7 @@ function Dashboard() {
     <div className="dashboard-container">
       {/* Tiêu đề */}
       <header className="dashboard-header">
-        <h1>Admin Dashboard</h1>
+        <h1 className="dashboard-name">Admin Dashboard</h1>
         <p>Welcome to the admin panel, where you can monitor all activities.</p>
       </header>
 
@@ -65,32 +65,32 @@ function Dashboard() {
 
       {/* Biểu đồ và hoạt động gần đây */}
       <section className="dashboard-content">
-        <div className="chart">
-          <h3>Monthly Sales</h3>
+        <div className="dashboard-chart">
+          <h3 className="dashboard-sale">Monthly Sales</h3>
           <Bar data={barData} options={barOptions} />
         </div>
         <div className="recent-activity">
-          <h3>Recent Activities</h3>
-          <table>
-            <thead>
-              <tr>
+          <h3 className="dashboard-recent">Recent Activities</h3>
+          <table className="dashboard-table">
+            <thead className="dashboard-thead">
+              <tr className="dashboard-tr">
                 <th>Date</th>
                 <th>Activity</th>
                 <th>Status</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr className="dashboard-tr1">
                 <td>2024-11-18</td>
                 <td>Added new user</td>
                 <td>Completed</td>
               </tr>
-              <tr>
+              <tr className="dashboard-tr2">
                 <td>2024-11-17</td>
                 <td>Generated sales report</td>
                 <td>In Progress</td>
               </tr>
-              <tr>
+              <tr className="dashboard-tr3">
                 <td>2024-11-16</td>
                 <td>Updated product details</td>
                 <td>Completed</td>
