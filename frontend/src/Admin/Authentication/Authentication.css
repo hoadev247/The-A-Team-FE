@@ -203,6 +203,12 @@
   cursor: pointer;
 }
 
+.admin-content {
+  height: 100%;
+  padding-top: 20px;
+  background-color: #fff;
+}
+
 .admin-vs {
   background-color: #fff;
   padding: 10px 20px;
