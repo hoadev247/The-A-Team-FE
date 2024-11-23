@@ -18,9 +18,9 @@ const LoginForm = () => {
       console.log("Sending login request...");
 
       const response = await fetch(`${API_URL}/login`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
       });
@@ -40,31 +40,39 @@ const LoginForm = () => {
         const decodedToken = jwtDecode(token);
         console.log("Decoded token:", decodedToken);
 
-        localStorage.setItem("token", token);
-
-        const userRole = decodedToken.Role;
+        // Truy cập role qua key đầy đủ
+        const userRole =
+          decodedToken[
+            "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+          ];
         console.log("User role:", userRole);
 
+        if (!userRole) {
+          throw new Error("User role is not defined in the token");
+        }
+
+        localStorage.setItem("token", token);
         localStorage.setItem("role", userRole);
 
         login(token, userRole);
 
         if (userRole === "Admin") {
-          navigate("/admin");  // Redirect to Authentication route for Admin
+          navigate("/admin"); // Redirect to Admin route
         } else {
-          navigate("/");  // Redirect to home for non-admin users
+          navigate("/"); // Redirect to home for non-admin users
         }
       } else {
         throw new Error("Invalid response from server");
       }
     } catch (err) {
       console.error("Error during login:", err);
-      setError(err.message);
+      setError("Login failed. Please check your credentials and try again.");
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setError(null); // Reset error message on new login attempt
     loginRequest(email, password);
   };
 
@@ -82,6 +90,7 @@ const LoginForm = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            placeholder="Enter your email"
           />
         </div>
         <div className="form-group">
@@ -94,6 +103,7 @@ const LoginForm = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            placeholder="Enter your password"
           />
         </div>
         {error && <p className="error-message">{error}</p>}

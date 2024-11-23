@@ -22,6 +22,7 @@ import User from "./Admin/ManageUser/ManageUser";
 import ForgotPassword from "./Client/ForgotPassword/ForgotPassword";
 import ResetPassword from "./Client/ResetPassword/ResetPassword";
 import EnterCode from "./Client/EnterCode/EnterCode";
+import UserProfile from "./Client/UserProfile/UserProfile";
 import "./App.css"; // Avoid duplicate import
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/cart" element={<CartForm />} />
           <Route path="/forgot-password" element={<ForgotAndResetPassword />} />
+          <Route path="/profile" element={<UserProfile />} />
 
           {/* Admin Routes */}
           {/* <Route path="/admin" element={<Admin />}></Route> */}

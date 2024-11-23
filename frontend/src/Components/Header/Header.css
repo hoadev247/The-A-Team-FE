@@ -39,6 +39,8 @@
   outline: none;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
   width: 200px;
+  height: 16px;
+  margin-top: 20px;
 }
 
 .search-bar button {
@@ -146,4 +148,23 @@
 
 .user-icon-style {
   font-size: 25px;
+}
+/* Các thay đổi bổ sung */
+.logout-icon-style {
+  margin-left: 10px;
+  cursor: pointer;
+  color: #ff4d4f;
+}
+
+.logout-icon-style:hover {
+  color: #d32f2f;
+}
+
+.user-icon-style {
+  cursor: pointer;
+  color: #333;
+}
+
+.user-icon-style:hover {
+  color: #f39c12;
 }

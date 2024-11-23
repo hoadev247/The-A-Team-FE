@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "../../Context/AuthContext"; // Import AuthContext
 import "./Header.css";
 
 export const Header = () => {
-  const [activeLink, setActiveLink] = useState(null);
+  const { auth } = useAuth(); // Lấy trạng thái auth từ AuthContext
+  const [activeLink, setActiveLink] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Đăng nhập
-  const navigate = useNavigate(); // Điều hướng
+  const navigate = useNavigate();
 
   const handleLinkClick = (link) => {
     setActiveLink(link);
@@ -19,18 +20,20 @@ export const Header = () => {
   };
 
   const handleUserClick = () => {
-    navigate("/login");
+    if (auth.token) {
+      navigate("/profile"); // Điều hướng tới trang thông tin tài khoản
+    } else {
+      navigate("/login"); // Điều hướng tới trang đăng nhập
+    }
   };
 
   return (
     <div className="header-container">
-      {/* Logo */}
+      {/* Logo và Search Bar */}
       <div className="logo-search-container">
         <div className="logo-header">
           <h1>MyLogo</h1>
         </div>
-
-        {/* Search Bar */}
         <div className="search-bar">
           <input
             type="text"
@@ -78,7 +81,7 @@ export const Header = () => {
         </div>
       </div>
 
-      {/* Auth and Cart */}
+      {/* Cart and User Icon */}
       <div className="navbar-header-container3">
         {/* Cart Icon */}
         <div className="cart">
@@ -88,8 +91,16 @@ export const Header = () => {
         </div>
 
         {/* User Icon */}
-        <div className="user-icon" onClick={handleUserClick}>
-          <FontAwesomeIcon icon={faUser} className="user-icon-style" />
+        <div className="user-actions">
+          {auth.token ? (
+            <div className="user-icon" onClick={handleUserClick}>
+              <FontAwesomeIcon icon={faUser} className="user-icon-style" />
+            </div>
+          ) : (
+            <div className="user-icon" onClick={handleUserClick}>
+              <FontAwesomeIcon icon={faUser} className="user-icon-style" />
+            </div>
+          )}
         </div>
       </div>
     </div>
