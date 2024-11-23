@@ -97,7 +97,11 @@ function Authentication() {
                 src="https://via.placeholder.com/40"
                 alt="User Avatar"
                 className="user-avatar"
+
+              />
+
                 />
+
               <span className="user-name">John Doe</span>
             </div>
           </div>
@@ -135,37 +139,65 @@ function Authentication() {
           </div>
           <ul className="admin-mobile-link">
             <li>
+
+              <Link to="/dashboard" className="admin-mobile-list">
+
               <Link to="dashboard" className="admin-mobile-list">
+
                 Dashboard
               </Link>
             </li>
             <li>
+
+              <Link to="/customers" className="admin-mobile-list">
+
               <Link to="customers" className="admin-mobile-list">
+
                 Customers
               </Link>
             </li>
             <li>
+
+              <Link to="/product" className="admin-mobile-list">
+
               <Link to="product" className="admin-mobile-list">
+
                 Product
               </Link>
             </li>
             <li>
+
+              <Link to="/order" className="admin-mobile-list">
+
               <Link to="order" className="admin-mobile-list">
+
                 Order
               </Link>
             </li>
             <li>
+
+              <Link to="/inventory" className="admin-mobile-list">
+
               <Link to="inventory" className="admin-mobile-list">
+
                 Inventory
               </Link>
             </li>
             <li>
+
+              <Link to="/panel" className="admin-mobile-list">
+
               <Link to="panel" className="admin-mobile-list">
+
                 Panel
               </Link>
             </li>
             <li>
+
+              <Link to="/users" className="admin-mobile-list">
+
               <Link to="users" className="admin-mobile-list">
+
                 Users
               </Link>
             </li>
