@@ -9,7 +9,7 @@ import RegisterForm from "./Client/Register/RegisterForm";
 import CartForm from "./Client/Cart/CartForm";
 import ForgotOrResetPasswordForm from "./Client/ForgotPassword/ForgotPassword";
 import Authentication from "./Admin/Authentication/Authentication";
-import { AuthContext, AuthProvider } from "./Context/AuthContext"; // Import AuthContext và AuthProvider
+import { useAuth, AuthProvider } from "./Context/AuthContext"; // Đảm bảo import AuthProvider tại đây
 import Dashboard from "./Admin/Dashboard/Dashboard";
 import Customer from "./Admin/ManageCustomer/ManageCustomer";
 import Product from "./Admin/Product/Product";
@@ -19,10 +19,11 @@ import AdminPanel from "./Admin/AdminPanel/Panel";
 import User from "./Admin/ManageUser/ManageUser";
 import ResetPassword from "./Client/ResetPassword/ResetPassword";
 import EnterCode from "./Client/EnterCode/EnterCode";
+import UserProfile from "./Client/userProfile/userProfile";
 import "./App.css";
 
 function App() {
-  const { auth } = useContext(AuthContext); // Sử dụng AuthContext để lấy trạng thái xác thực
+  const { auth } = useAuth(); // Sử dụng useAuth để lấy trạng thái xác thực
 
   return (
     <div className="App">
@@ -42,28 +43,24 @@ function App() {
           />
           <Route path="/enter-code" element={<EnterCode />} />
           <Route path="/reset-password" element={<ResetPassword />} />
-
+          <Route path="/user-profile" element={<UserProfile />} />
           {/* Admin Routes */}
-          {auth?.role === "admin" ? (
-            <Route path="/admin" element={<Authentication />}>
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="customers" element={<Customer />} />
-              <Route path="product" element={<Product />} />
-              <Route path="order" element={<Order />} />
-              <Route path="inventory" element={<Inventory />} />
-              <Route path="panel" element={<AdminPanel />} />
-              <Route path="users" element={<User />} />
-            </Route>
-          ) : (
-            <Route path="/admin/*" element={<LoginForm />} />
-          )}
+          <Route path="/admin" element={<Authentication />}>
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="customers" element={<Customer />} />
+            <Route path="product" element={<Product />} />
+            <Route path="order" element={<Order />} />
+            <Route path="inventory" element={<Inventory />} />
+            <Route path="panel" element={<AdminPanel />} />
+            <Route path="users" element={<User />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>
   );
 }
 
-// Đổi tên thành WrappedApp thay vì AuthContext
+// Bao bọc App với AuthProvider
 export default function WrappedApp() {
   return (
     <AuthProvider>

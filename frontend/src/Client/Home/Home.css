@@ -1,3 +1,31 @@
+body {
+  margin: 0; /* Loại bỏ khoảng trống mặc định của trình duyệt */
+  padding: 0;
+  overflow-x: hidden; /* Ngăn tràn ngang màn hình */
+  width: 100%;
+  box-sizing: border-box; /* Đảm bảo padding và border không làm vượt kích thước */
+  font-family: Arial, sans-serif; /* Gợi ý thêm font mặc định */
+}
+
+/* Đảm bảo các phần tử không vượt quá màn hình */
+* {
+  box-sizing: border-box; /* Đảm bảo padding và border không làm vượt chiều rộng */
+}
+
+/* Đối với container chính */
+.container {
+  max-width: 100%; /* Không cho phép vượt chiều rộng màn hình */
+  overflow-x: hidden;
+}
+
+/* Đảm bảo nội dung bên trong cũng không vượt quá chiều rộng */
+.header-container,
+.logo-search-container,
+.navbar-header-link,
+.auth-cart-container {
+  max-width: 100%;
+  overflow-x: hidden;
+}
 /* Container chính */
 .featured-product {
   display: flex;

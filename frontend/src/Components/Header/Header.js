@@ -1,36 +1,67 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faShoppingCart,
+  faUser,
+  faBars,
+  faTimes,
+} from "@fortawesome/free-solid-svg-icons";
 import "./Header.css";
 
+// Header component
 export const Header = () => {
-  const [activeLink, setActiveLink] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Đăng nhập
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // Track if menu is open
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Trạng thái đăng nhập
   const navigate = useNavigate(); // Điều hướng
 
-  const handleLinkClick = (link) => {
-    setActiveLink(link);
-  };
+  // Kiểm tra trạng thái đăng nhập từ localStorage khi component được render
+  useEffect(() => {
+    const loggedInStatus = localStorage.getItem("isLoggedIn");
+    console.log("Login status from localStorage:", loggedInStatus);
 
+    if (loggedInStatus === "true") {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
+
+  // Toggle menu visibility
+  const toggleMenu = () => {
+    console.log("Menu toggled");
+    setIsMenuOpen(!isMenuOpen); // Toggle the menu open/close state
+  };
+  useEffect(() => {
+    console.log("isMenuOpen:", isMenuOpen);
+  }, [isMenuOpen]);
+
+  // Hàm tìm kiếm
   const handleSearch = () => {
     console.log("Search for:", searchQuery);
   };
 
+  // Hàm xử lý khi người dùng click vào icon người dùng
   const handleUserClick = () => {
-    navigate("/login");
+    console.log("Is Logged In:", isLoggedIn);
+    if (isLoggedIn) {
+      navigate("/profile"); // Nếu đã đăng nhập, điều hướng tới trang thông tin cá nhân
+    } else {
+      navigate("/login"); // Nếu chưa đăng nhập, điều hướng tới trang đăng nhập
+    }
   };
 
   return (
     <div className="header-container">
-      {/* Logo */}
+      {/* Logo and Search */}
       <div className="logo-search-container">
-        <div className="logo-header">
-          <h1>MyLogo</h1>
+        <div
+          className={`logo-header ${isMenuOpen ? "x-logo" : ""}`}
+          onClick={toggleMenu} // Toggle the menu on logo click
+        >
+          {isMenuOpen ? <FontAwesomeIcon icon={faTimes} /> : <h1>MyLogo</h1>}
         </div>
-
-        {/* Search Bar */}
         <div className="search-bar">
           <input
             type="text"
@@ -42,40 +73,45 @@ export const Header = () => {
         </div>
       </div>
 
-      {/* Navigation Links */}
-      <div className="navbar-header-link">
-        <div
-          className={`navbar-header-home ${
-            activeLink === "home" ? "active" : ""
-          }`}
-          onClick={() => handleLinkClick("home")}
+      {/* Hamburger Icon to toggle the menu */}
+      <div className="hamburger-icon" onClick={toggleMenu}>
+        <FontAwesomeIcon icon={faBars} />
+      </div>
+
+      {/* Navigation Menu */}
+      <div className={`navbar-header-link ${isMenuOpen ? "show-menu" : ""}`}>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive ? "navbar-header-home active" : "navbar-header-home"
+          }
         >
-          <Link to="/">Home</Link>
-        </div>
-        <div
-          className={`navbar-header-about ${
-            activeLink === "about" ? "active" : ""
-          }`}
-          onClick={() => handleLinkClick("about")}
+          Home
+        </NavLink>
+        <NavLink
+          to="/about"
+          className={({ isActive }) =>
+            isActive ? "navbar-header-about active" : "navbar-header-about"
+          }
         >
-          <Link to="/about">About</Link>
-        </div>
-        <div
-          className={`navbar-header-contact ${
-            activeLink === "contact" ? "active" : ""
-          }`}
-          onClick={() => handleLinkClick("contact")}
+          About
+        </NavLink>
+        <NavLink
+          to="/contact"
+          className={({ isActive }) =>
+            isActive ? "navbar-header-contact active" : "navbar-header-contact"
+          }
         >
-          <Link to="/contact">Contact</Link>
-        </div>
-        <div
-          className={`navbar-header-news ${
-            activeLink === "news" ? "active" : ""
-          }`}
-          onClick={() => handleLinkClick("news")}
+          Contact
+        </NavLink>
+        <NavLink
+          to="/news"
+          className={({ isActive }) =>
+            isActive ? "navbar-header-news active" : "navbar-header-news"
+          }
         >
-          <Link to="/news">News</Link>
-        </div>
+          News
+        </NavLink>
       </div>
 
       {/* Auth and Cart */}
@@ -96,4 +132,4 @@ export const Header = () => {
   );
 };
 
-export default Header;
+export default Header; // Only export Header as default

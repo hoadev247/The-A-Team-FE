@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import "./UserProfile.css"; // CSS cho trang thông tin tài khoản
 
 const UserProfile = () => {
   const { auth, logout } = useAuth();
@@ -10,53 +9,72 @@ const UserProfile = () => {
   const [user, setUser] = useState(null);
   const [orders, setOrders] = useState([]);
   const [securityInfo, setSecurityInfo] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  // Kiểm tra nếu người dùng chưa đăng nhập, điều hướng về trang login
   useEffect(() => {
     if (!auth.token) {
-      navigate("/login"); // Nếu chưa đăng nhập, chuyển tới trang login
-      return;
+      console.log("No token, redirecting to login");
+      navigate("/login");
+    } else {
+      const fetchData = async () => {
+        setLoading(true);
+        try {
+          // Log token to ensure it's being sent correctly
+          console.log("Token:", auth.token);
+
+          // Fetch user data
+          const userData = {
+            name: "John Doe",
+            email: "john@example.com",
+            memberType: "Member",
+            avatarUrl: "https://via.placeholder.com/100", // Check if avatar exists
+          };
+          setUser(userData);
+
+          // Fetch orders
+          const orderData = [
+            { id: 1, date: "2024-10-01", status: "Shipped", total: "$25" },
+            { id: 2, date: "2024-10-15", status: "Processing", total: "$40" },
+          ];
+          setOrders(orderData);
+
+          // Fetch security info
+          const securityData = {
+            passwordLastChanged: "2024-08-15",
+            twoFactorEnabled: true,
+          };
+          setSecurityInfo(securityData);
+        } catch (err) {
+          setError("Error fetching data");
+          console.error("Error:", err); // Log errors
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchData();
     }
-
-    // Giả lập lấy thông tin người dùng từ API
-    const fetchUserData = async () => {
-      const userData = {
-        name: "John Doe",
-        email: "john@example.com",
-        memberType: "Member",
-        avatarUrl: "https://via.placeholder.com/100", // Thêm URL avatar của người dùng
-      }; // Giả lập
-      setUser(userData);
-    };
-
-    // Giả lập lấy thông tin đơn hàng
-    const fetchOrders = async () => {
-      const orderData = [
-        { id: 1, date: "2024-10-01", status: "Shipped", total: "$25" },
-        { id: 2, date: "2024-10-15", status: "Processing", total: "$40" },
-      ]; // Giả lập
-      setOrders(orderData);
-    };
-
-    // Giả lập lấy thông tin bảo mật
-    const fetchSecurityInfo = async () => {
-      const securityData = {
-        passwordLastChanged: "2024-08-15",
-        twoFactorEnabled: true,
-      }; // Giả lập
-      setSecurityInfo(securityData);
-    };
-
-    fetchUserData();
-    fetchOrders();
-    fetchSecurityInfo();
-  }, [auth, navigate]);
+  }, [auth.token, navigate]);
 
   const handleLogout = () => {
-    logout();
-    navigate("/"); // Redirect to home after logout
+    const confirmLogout = window.confirm("Are you sure you want to log out?");
+    if (confirmLogout) {
+      logout();
+      navigate("/"); // Redirect to home
+    }
   };
 
   const renderContent = () => {
+    if (loading) {
+      return <div className="loader">Loading...</div>; // You can add a spinner here
+    }
+
+    if (error) {
+      return <p>{error}</p>;
+    }
+
     switch (activeTab) {
       case "profile":
         return (
@@ -69,7 +87,7 @@ const UserProfile = () => {
                 <p>Loại thành viên: {user.memberType}</p>
               </div>
             ) : (
-              <p>Đang tải thông tin...</p>
+              <p>Không có thông tin người dùng</p>
             )}
           </div>
         );
@@ -112,7 +130,7 @@ const UserProfile = () => {
                 </p>
               </div>
             ) : (
-              <p>Đang tải thông tin bảo mật...</p>
+              <p>Không có thông tin bảo mật</p>
             )}
           </div>
         );
@@ -124,31 +142,28 @@ const UserProfile = () => {
   return (
     <div className="user-profile-container">
       <div className="tabs-container">
-        {/* Tabs menu ở bên phải */}
         <div className="tabs">
-          <button onClick={() => setActiveTab("profile")}>
+          <button
+            onClick={() => setActiveTab("profile")}
+            className={activeTab === "profile" ? "active" : ""}
+          >
             Thông Tin Người Dùng
           </button>
-          <button onClick={() => setActiveTab("orders")}>
+          <button
+            onClick={() => setActiveTab("orders")}
+            className={activeTab === "orders" ? "active" : ""}
+          >
             Đơn Hàng Đã Mua
           </button>
-          <button onClick={() => setActiveTab("security")}>Bảo Mật</button>
-        </div>
-
-        {/* Nội dung ở bên trái */}
-        <div className="content-container">
-          <div className="user-header">
-            {/* Logo tài khoản */}
-            <div className="user-avatar">
-              <img src={user?.avatarUrl} alt="Avatar" />
-            </div>
-            <h1>Thông Tin Tài Khoản</h1>
-          </div>
-          <div className="content">{renderContent()}</div>
+          <button
+            onClick={() => setActiveTab("security")}
+            className={activeTab === "security" ? "active" : ""}
+          >
+            Bảo Mật
+          </button>
         </div>
       </div>
-
-      {/* Nút đăng xuất */}
+      {renderContent()}
       <button onClick={handleLogout}>Đăng Xuất</button>
     </div>
   );

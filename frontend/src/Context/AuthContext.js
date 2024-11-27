@@ -1,14 +1,34 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
-export const AuthContext = createContext(); // Tạo context
+// Tạo context
+const AuthContext = createContext();
 
-export const useAuth = () => useContext(AuthContext); // Custom hook để sử dụng AuthContext
-
+// Cung cấp context cho các component con
 export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState(null); // Trạng thái mặc định
+  const [auth, setAuth] = useState({
+    token: localStorage.getItem("token"),
+    role: localStorage.getItem("role"),
+  });
 
-  const login = (userData) => setAuth(userData); // Hàm login
-  const logout = () => setAuth(null); // Hàm logout
+  const login = (token, role) => {
+    localStorage.setItem("token", token);
+    localStorage.setItem("role", role);
+    setAuth({ token, role });
+  };
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    setAuth({ token: null, role: null });
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
+    if (token && role) {
+      setAuth({ token, role });
+    }
+  }, []);
 
   return (
     <AuthContext.Provider value={{ auth, login, logout }}>
@@ -16,3 +36,8 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+// Hook để truy cập vào context
+export const useAuth = () => useContext(AuthContext);
+
+export default AuthContext; // Thêm export mặc định AuthContext
