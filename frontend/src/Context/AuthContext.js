@@ -1,7 +1,14 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 
+<<<<<<< HEAD
 // Tạo context
 const AuthContext = createContext();
+=======
+
+export const AuthContext = createContext(); // Tạo context
+
+export const useAuth = () => useContext(AuthContext); // Custom hook để sử dụng AuthContext
+>>>>>>> e61fb4d43638ef5d3616ad79893a0ab7c01ce004
 
 // Cung cấp context cho các component con
 export const AuthProvider = ({ children }) => {
@@ -30,6 +37,27 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
+const AuthContext = createContext();
+
+export const AuthProvider = ({ children }) => {
+  const [auth, setAuth] = useState({
+    token: localStorage.getItem("token"),
+    role: localStorage.getItem("role"),
+  });
+
+  const login = (token, role) => {
+    setAuth({ token, role });
+    localStorage.setItem("token", token);
+    localStorage.setItem("role", role);
+  };
+
+  const logout = () => {
+    setAuth({ token: null, role: null });
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+  };
+
+
   return (
     <AuthContext.Provider value={{ auth, login, logout }}>
       {children}
@@ -37,7 +65,18 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
+<<<<<<< HEAD
 // Hook để truy cập vào context
 export const useAuth = () => useContext(AuthContext);
 
 export default AuthContext; // Thêm export mặc định AuthContext
+=======
+
+
+export function useAuth() {
+  return useContext(AuthContext);
+}
+
+export default AuthContext;
+
+>>>>>>> e61fb4d43638ef5d3616ad79893a0ab7c01ce004

@@ -2,11 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Footer.css";
 
+<<<<<<< HEAD
 const fb =
   "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg";
 const insta =
   "https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png";
 
+=======
+>>>>>>> e61fb4d43638ef5d3616ad79893a0ab7c01ce004
 const Footer = () => {
   const sections = [
     {
@@ -61,11 +64,18 @@ const Footer = () => {
         <div className="footer-section subscribe">
           <h3>Subscribe</h3>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-          <input type="email" placeholder="Enter your email" />
+          <input
+            className="subscribe-input"
+            type="email"
+            placeholder="Enter your email"
+          />
           <button>Send</button>
         </div>
 
+<<<<<<< HEAD
         {/* Social Media Section */}
+=======
+>>>>>>> e61fb4d43638ef5d3616ad79893a0ab7c01ce004
         <div className="footer-section social">
           <h3 className="h3_us">Follow Us</h3>
           <div className="social-icons">
@@ -74,19 +84,28 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img src={fb} alt="Facebook" />
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+                alt="Facebook"
+              />
             </a>
             <a
               href="https://www.instagram.com"
               target="_blank"
               rel="noopener noreferrer"
             >
+<<<<<<< HEAD
               <img src={insta} alt="Instagram" />
+=======
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+                alt="Instagram"
+              />
+>>>>>>> e61fb4d43638ef5d3616ad79893a0ab7c01ce004
             </a>
           </div>
         </div>
       </div>
-
       <div className="footer-bottom">
         <p>&copy; 2024 Your Company. All rights reserved.</p>
       </div>

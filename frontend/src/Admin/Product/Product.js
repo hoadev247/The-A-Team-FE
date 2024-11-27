@@ -58,7 +58,7 @@ function Product() {
       <section className="product-form">
         <h3>Add Product</h3>
         <form>
-          <div className="form-group">
+          <div className="form-up">
             <label>Product Name</label>
             <input
               type="text"
@@ -68,7 +68,7 @@ function Product() {
               placeholder="Enter product name"
             />
           </div>
-          <div className="form-group">
+          <div className="form-up">
             <label>Category</label>
             <input
               type="text"
@@ -78,7 +78,7 @@ function Product() {
               placeholder="Enter category"
             />
           </div>
-          <div className="form-group">
+          <div className="form-up">
             <label>Price</label>
             <input
               type="number"

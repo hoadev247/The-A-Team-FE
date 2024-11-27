@@ -6,6 +6,7 @@ import { IoSearch } from "react-icons/io5";
 import { MdOutlineEmail } from "react-icons/md";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { BsThreeDotsVertical } from "react-icons/bs";
+
 import "./Authentication.css";
 
 function Authentication() {
@@ -38,25 +39,25 @@ function Authentication() {
         <nav className="admin-nav">
           <ul>
             <li>
-              <Link to="/dashboard">Dashboard</Link>
+              <Link to="dashboard">Dashboard</Link>
             </li>
             <li>
-              <Link to="/customers">Customers</Link>
+              <Link to="customers">Customers</Link>
             </li>
             <li>
-              <Link to="/product">Product</Link>
+              <Link to="product">Product</Link>
             </li>
             <li>
-              <Link to="/order">Order</Link>
+              <Link to="order">Order</Link>
             </li>
             <li>
-              <Link to="/inventory">Inventory</Link>
+              <Link to="inventory">Inventory</Link>
             </li>
             <li>
-              <Link to="/panel">Panel</Link>
+              <Link to="panel">Panel</Link>
             </li>
             <li>
-              <Link to="/users">Users</Link>
+              <Link to="users">Users</Link>
             </li>
           </ul>
         </nav>
@@ -96,7 +97,11 @@ function Authentication() {
                 src="https://via.placeholder.com/40"
                 alt="User Avatar"
                 className="user-avatar"
+
               />
+
+                />
+
               <span className="user-name">John Doe</span>
             </div>
           </div>
@@ -134,37 +139,65 @@ function Authentication() {
           </div>
           <ul className="admin-mobile-link">
             <li>
+
               <Link to="/dashboard" className="admin-mobile-list">
+
+              <Link to="dashboard" className="admin-mobile-list">
+
                 Dashboard
               </Link>
             </li>
             <li>
+
               <Link to="/customers" className="admin-mobile-list">
+
+              <Link to="customers" className="admin-mobile-list">
+
                 Customers
               </Link>
             </li>
             <li>
+
               <Link to="/product" className="admin-mobile-list">
+
+              <Link to="product" className="admin-mobile-list">
+
                 Product
               </Link>
             </li>
             <li>
+
               <Link to="/order" className="admin-mobile-list">
+
+              <Link to="order" className="admin-mobile-list">
+
                 Order
               </Link>
             </li>
             <li>
+
               <Link to="/inventory" className="admin-mobile-list">
+
+              <Link to="inventory" className="admin-mobile-list">
+
                 Inventory
               </Link>
             </li>
             <li>
+
               <Link to="/panel" className="admin-mobile-list">
+
+              <Link to="panel" className="admin-mobile-list">
+
                 Panel
               </Link>
             </li>
             <li>
+
               <Link to="/users" className="admin-mobile-list">
+
+              <Link to="users" className="admin-mobile-list">
+
                 Users
               </Link>
             </li>

@@ -18,9 +18,15 @@ const LoginForm = () => {
     try {
       setLoading(true); // Start loading
       const response = await fetch(`${API_URL}/login`, {
+
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+
         },
         body: JSON.stringify({ email, password }),
       });
@@ -48,9 +54,21 @@ const LoginForm = () => {
         login(token, userRole);
 
         if (userRole === "Admin") {
+<<<<<<< HEAD
           navigate("/admin");
         } else {
           navigate("/"); // Navigate to the home page for non-admins
+=======
+
+          navigate("/admin"); // Redirect to Authentication route for Admin
+        } else {
+          navigate("/"); // Redirect to home for non-admin users
+
+          navigate("/admin");  // Redirect to Authentication route for Admin
+        } else {
+          navigate("/");  // Redirect to home for non-admin users
+
+>>>>>>> e61fb4d43638ef5d3616ad79893a0ab7c01ce004
         }
       } else {
         throw new Error("Invalid response from server");
