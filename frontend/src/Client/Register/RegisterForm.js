@@ -3,7 +3,6 @@ import axios from "axios";
 import "./RegisterForm.css";
 import { Link } from "react-router-dom"; // Import Link từ react-router-dom để điều hướng
 
-
 const RegisterForm = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -26,7 +25,10 @@ const RegisterForm = () => {
     e.preventDefault();
 
     // Validate form fields
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     if (
       !firstName ||
       !lastName ||
@@ -35,9 +37,12 @@ const RegisterForm = () => {
       !password ||
       !confirmPassword
     ) {
+<<<<<<< Updated upstream
 
     if (!firstName || !lastName || !dateOfBirth || !email || !password || !confirmPassword) {
 
+=======
+>>>>>>> Stashed changes
       setError("All fields are required!");
       return;
     }
@@ -61,6 +66,7 @@ const RegisterForm = () => {
       setSuccess("Registration successful! You can now log in.");
       setError("");
     } catch (err) {
+<<<<<<< Updated upstream
 
       setError(
         err.response?.data?.message || "Registration failed. Please try again."
@@ -68,6 +74,11 @@ const RegisterForm = () => {
 
       setError(err.response?.data?.message || "Registration failed. Please try again.");
 
+=======
+      setError(
+        err.response?.data?.message || "Registration failed. Please try again."
+      );
+>>>>>>> Stashed changes
       setSuccess("");
     }
   };

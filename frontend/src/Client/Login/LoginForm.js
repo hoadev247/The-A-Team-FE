@@ -40,20 +40,25 @@ const LoginForm = () => {
 
       if (token) {
         const decodedToken = jwtDecode(token);
+<<<<<<< Updated upstream
         const userRole =
           decodedToken[
             "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
           ];
-
-        if (!userRole) {
-          throw new Error("User role is not defined in the token");
-        }
+=======
+        console.log("Decoded token:", decodedToken);
 
         localStorage.setItem("token", token);
+
+        const userRole = decodedToken.Role;
+        console.log("User role:", userRole);
+>>>>>>> Stashed changes
+
         localStorage.setItem("role", userRole);
         login(token, userRole);
 
         if (userRole === "Admin") {
+<<<<<<< Updated upstream
 <<<<<<< HEAD
           navigate("/admin");
         } else {
@@ -69,14 +74,24 @@ const LoginForm = () => {
           navigate("/");  // Redirect to home for non-admin users
 
 >>>>>>> e61fb4d43638ef5d3616ad79893a0ab7c01ce004
+=======
+          navigate("/admin/dashboard");
+        } else {
+          navigate("/");
+>>>>>>> Stashed changes
         }
       } else {
         throw new Error("Invalid response from server");
       }
     } catch (err) {
+<<<<<<< Updated upstream
       setError(err.message);
     } finally {
       setLoading(false); // End loading
+=======
+      console.error("Error during login:", err);
+      setError(err.message);
+>>>>>>> Stashed changes
     }
   };
 

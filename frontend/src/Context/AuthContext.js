@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+<<<<<<< Updated upstream
 
 <<<<<<< HEAD
 // Tạo context
@@ -36,9 +37,13 @@ export const AuthProvider = ({ children }) => {
       setAuth({ token, role });
     }
   }, []);
+=======
+>>>>>>> Stashed changes
 
+// Tạo context
 const AuthContext = createContext();
 
+// Cung cấp context cho các component con
 export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({
     token: localStorage.getItem("token"),
@@ -46,17 +51,27 @@ export const AuthProvider = ({ children }) => {
   });
 
   const login = (token, role) => {
-    setAuth({ token, role });
     localStorage.setItem("token", token);
     localStorage.setItem("role", role);
+    setAuth({ token, role });
   };
 
   const logout = () => {
-    setAuth({ token: null, role: null });
     localStorage.removeItem("token");
     localStorage.removeItem("role");
+    setAuth({ token: null, role: null });
   };
 
+<<<<<<< Updated upstream
+=======
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const role = localStorage.getItem("role");
+    if (token && role) {
+      setAuth({ token, role });
+    }
+  }, []);
+>>>>>>> Stashed changes
 
   return (
     <AuthContext.Provider value={{ auth, login, logout }}>
@@ -65,6 +80,7 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 // Hook để truy cập vào context
 export const useAuth = () => useContext(AuthContext);
@@ -80,3 +96,9 @@ export function useAuth() {
 export default AuthContext;
 
 >>>>>>> e61fb4d43638ef5d3616ad79893a0ab7c01ce004
+=======
+// Hook để truy cập vào context
+export const useAuth = () => useContext(AuthContext);
+
+export default AuthContext; // Thêm export mặc định AuthContext
+>>>>>>> Stashed changes

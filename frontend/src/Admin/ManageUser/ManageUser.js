@@ -1,11 +1,28 @@
 import React, { useState, useEffect } from "react";
+<<<<<<< Updated upstream
 import { getAccounts, addAccount, updateAccount, deleteAccount } from "../../Service/AccountService";
+=======
+import {
+  getAccounts,
+  addAccount,
+  updateAccount,
+  deleteAccount,
+} from "../../Service/AccountService";
+>>>>>>> Stashed changes
 import "./ManageUser.css";
 
 function User() {
   const [accounts, setAccounts] = useState([]);
   const [search, setSearch] = useState("");
+<<<<<<< Updated upstream
   const [newAccount, setNewAccount] = useState({ email: "", role: "", isActive: true });
+=======
+  const [newAccount, setNewAccount] = useState({
+    email: "",
+    role: "",
+    isActive: true,
+  });
+>>>>>>> Stashed changes
   const [editAccount, setEditAccount] = useState(null);
 
   useEffect(() => {
@@ -68,14 +85,22 @@ function User() {
   return (
     <div className="user-home">
       <h1 className="user-mana">User Management</h1>
+<<<<<<< Updated upstream
       
       {/* Input tìm kiếm */}
       <input className="user-search"
+=======
+
+      {/* Input tìm kiếm */}
+      <input
+        className="user-search"
+>>>>>>> Stashed changes
         type="text"
         placeholder="Search accounts..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
+<<<<<<< Updated upstream
       
       {/* Thêm tài khoản */}
       <div className="user-key">
@@ -92,11 +117,38 @@ function User() {
           onChange={(e) => setNewAccount({ ...newAccount, role: e.target.value })}
         />
         <button className="user-but" onClick={handleAddAccount}>Add Account</button>
+=======
+
+      {/* Thêm tài khoản */}
+      <div className="user-key">
+        <input
+          className="user-email"
+          type="text"
+          placeholder="Email"
+          value={newAccount.email}
+          onChange={(e) =>
+            setNewAccount({ ...newAccount, email: e.target.value })
+          }
+        />
+        <input
+          className="user-password"
+          type="text"
+          placeholder="Role"
+          value={newAccount.role}
+          onChange={(e) =>
+            setNewAccount({ ...newAccount, role: e.target.value })
+          }
+        />
+        <button className="user-btn" onClick={handleAddAccount}>
+          Add Account
+        </button>
+>>>>>>> Stashed changes
       </div>
 
       {/* Sửa tài khoản */}
       {editAccount && (
         <div className="user-edit">
+<<<<<<< Updated upstream
           <input className="user-edit-email"
             type="text"
             value={editAccount.email}
@@ -108,6 +160,27 @@ function User() {
             onChange={(e) => setEditAccount({ ...editAccount, role: e.target.value })}
           />
           <button onClick={handleEditAccount}>Update Account</button>
+=======
+          <input
+            className="user-edit-email"
+            type="text"
+            value={editAccount.email}
+            onChange={(e) =>
+              setEditAccount({ ...editAccount, email: e.target.value })
+            }
+          />
+          <input
+            className="user-edit-role"
+            type="text"
+            value={editAccount.role}
+            onChange={(e) =>
+              setEditAccount({ ...editAccount, role: e.target.value })
+            }
+          />
+          <button className="user-btn1" onClick={handleEditAccount}>
+            Update Account
+          </button>
+>>>>>>> Stashed changes
         </div>
       )}
 
@@ -129,16 +202,41 @@ function User() {
                 <td className="user-account-id">{account.accountId}</td>
                 <td className="user-account-email">{account.email}</td>
                 <td className="user-account-role">{account.role}</td>
+<<<<<<< Updated upstream
                 <td className="user-account-is">{account.isActive ? "Active" : "Inactive"}</td>
                 <td>
                   <button className="user-btn1" onClick={() => setEditAccount(account)}>Edit</button>
                   <button className="user-btn2" onClick={() => handleDeleteAccount(account.accountId)}>Delete</button>
+=======
+                <td className="user-account-is">
+                  {account.isActive ? "Active" : "Inactive"}
+                </td>
+                <td>
+                  <button
+                    className="user-btn1"
+                    onClick={() => setEditAccount(account)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="user-btn2"
+                    onClick={() => handleDeleteAccount(account.accountId)}
+                  >
+                    Delete
+                  </button>
+>>>>>>> Stashed changes
                 </td>
               </tr>
             ))
           ) : (
             <tr className="user-found">
+<<<<<<< Updated upstream
               <td className="user-col" colSpan="5">No accounts found.</td>
+=======
+              <td className="user-col" colSpan="5">
+                No accounts found.
+              </td>
+>>>>>>> Stashed changes
             </tr>
           )}
         </tbody>

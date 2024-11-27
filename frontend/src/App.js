@@ -27,7 +27,7 @@ import Customer from "./Admin/ManageCustomer/ManageCustomer";
 import Product from "./Admin/Product/Product";
 import Order from "./Admin/Order/Order";
 import Inventory from "./Admin/Inventory/Inventory";
-import AdminPanel from "./Admin/AdminPanel/Panel";
+import NewsAdmin from "./Admin/NewsAdmin/NewAdmin";
 import User from "./Admin/ManageUser/ManageUser";
 
 
@@ -35,8 +35,15 @@ import ForgotPassword from "./Client/ForgotPassword/ForgotPassword";
 
 import ResetPassword from "./Client/ResetPassword/ResetPassword";
 import EnterCode from "./Client/EnterCode/EnterCode";
+<<<<<<< Updated upstream
 import UserProfile from "./Client/userProfile/userProfile";
 import "./App.css";
+=======
+
+import UserProfile from "./Client/UserProfile/UserProfile";
+
+import "./App.css"; // Avoid duplicate import
+>>>>>>> Stashed changes
 
 function App() {
 <<<<<<< HEAD
@@ -78,7 +85,7 @@ function App() {
             <Route path="product" element={<Product />} />
             <Route path="order" element={<Order />} />
             <Route path="inventory" element={<Inventory />} />
-            <Route path="panel" element={<AdminPanel />} />
+            <Route path="news" element={<NewsAdmin />} />
             <Route path="users" element={<User />} />
           </Route>
 

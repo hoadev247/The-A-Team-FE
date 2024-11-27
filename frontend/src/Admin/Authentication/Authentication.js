@@ -54,7 +54,7 @@ function Authentication() {
               <Link to="inventory">Inventory</Link>
             </li>
             <li>
-              <Link to="panel">Panel</Link>
+              <Link to="news">News</Link>
             </li>
             <li>
               <Link to="users">Users</Link>
@@ -97,11 +97,15 @@ function Authentication() {
                 src="https://via.placeholder.com/40"
                 alt="User Avatar"
                 className="user-avatar"
+<<<<<<< Updated upstream
 
               />
 
                 />
 
+=======
+              />
+>>>>>>> Stashed changes
               <span className="user-name">John Doe</span>
             </div>
           </div>
@@ -184,12 +188,17 @@ function Authentication() {
               </Link>
             </li>
             <li>
+<<<<<<< Updated upstream
 
               <Link to="/panel" className="admin-mobile-list">
 
               <Link to="panel" className="admin-mobile-list">
 
                 Panel
+=======
+              <Link to="news" className="admin-mobile-list">
+                News
+>>>>>>> Stashed changes
               </Link>
             </li>
             <li>
