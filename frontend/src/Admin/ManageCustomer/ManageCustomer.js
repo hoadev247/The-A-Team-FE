@@ -1,19 +1,62 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./ManageCustomer.css";
-import "./CustomerResponsive.css"
+import "./CustomerResponsive.css";
+
+
+const API_URL = "http://localhost:5024/api/customers"
 
 function Customer() {
+  const [customers, setCustomers] = useState([]);
   const [search, setSearch] = useState("");
-  const customers = [
-    { id: 1, name: "John Doe", email: "john@example.com", phone: "123-456-7890" },
-    { id: 2, name: "Jane Smith", email: "jane@example.com", phone: "098-765-4321" },
-    { id: 3, name: "Michael Brown", email: "michael@example.com", phone: "555-123-4567" },
-  ];
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
+   // Lấy danh sách khách hàng từ API
+   const fetchCustomers = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const response = await axios.get(API_URL, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // Thêm token nếu cần
+        },
+      });
+      if (!Array.isArray(response.data)) {
+        throw new Error("Invalid response data format");
+      }
+      setCustomers(response.data);
+    } catch (err) {
+      setError("Failed to load customers. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchCustomers();
+  }, []);
+
+  // Xóa khách hàng
+  const deleteCustomer = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this customer?")) return;
+    try {
+      await axios.delete(`${API_URL}/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      setCustomers(customers.filter((customer) => customer.customerId !== id));
+    } catch (err) {
+      alert("Failed to delete customer. Please try again.");
+    }
+  };
+
+  // Lọc khách hàng theo tìm kiếm
   const filteredCustomers = customers.filter(
     (customer) =>
-      customer.name.toLowerCase().includes(search.toLowerCase()) ||
-      customer.email.toLowerCase().includes(search.toLowerCase())
+      customer.firstName.toLowerCase().includes(search.toLowerCase()) ||
+      customer.lastName.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -34,47 +77,50 @@ function Customer() {
         />
       </div>
 
-      {/* Bảng danh sách khách hàng */}
-      <div className="customer-list">
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredCustomers.length > 0 ? (
-              filteredCustomers.map((customer) => (
-                <tr key={customer.id}>
-                  <td>{customer.id}</td>
-                  <td>{customer.name}</td>
-                  <td>{customer.email}</td>
-                  <td>{customer.phone}</td>
-                  <td>
-                    <button className="btn-edit">Edit</button>
-                    <button className="btn-delete">Delete</button>
-                  </td>
+      {/* Xử lý trạng thái */}
+      {loading ? (
+        <div className="loading">Loading customers...</div>
+      ) : error ? (
+        <div className="error">{error}</div>
+      ) : (
+        <div className="customer-list">
+          {filteredCustomers.length > 0 ? (
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Date of Birth</th>
+                  <th>Actions</th>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="5">No customers found.</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-
-      {/* Nút thêm khách hàng */}
-      <div className="customer-add">
-        <button className="btn-add">Add New Customer</button>
-      </div>
+              </thead>
+              <tbody>
+                {filteredCustomers.map((customer) => (
+                  <tr key={customer.customerId}>
+                    <td>{customer.customerId}</td>
+                    <td>{customer.firstName}</td>
+                    <td>{customer.lastName}</td>
+                    <td>{new Date(customer.dateOfBirth).toLocaleDateString()}</td>
+                    <td>
+                      <button
+                        className="btn-delete"
+                        onClick={() => deleteCustomer(customer.customerId)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <div className="no-customers">No customers found. Try searching with a different term.</div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
 
-export default Customer;
+export default Customer;  
